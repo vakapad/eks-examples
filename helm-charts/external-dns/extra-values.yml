@@ -1,0 +1,22 @@
+service:
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: "ext.{{domain}}."
+
+provider: aws
+
+## AWS configuration to be set via arguments/env. variables
+##
+aws:
+  region: "{{region}}"
+  zoneType: "private"
+
+serviceAccount:
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::{{account_id}}:role/cluster-kubesystem"
+
+
+publishInternalServices: true
+domainFilters: [ "{{domain}}" ]
+#logLevel: debug
+txtOwnerId: "{{aws_zone_id}}"
+
